@@ -1,0 +1,29 @@
+{
+    "name": "geeksareforlife/laravel-doctrine-artisan",
+    "description": "A little package to speed up the creation of entities with associated mappings and repositories",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "James Hayward",
+            "email": "james@geeksareforlife.com"
+        }
+    ],
+    "require": {
+        "php": ">=7.2",
+        "illuminate/support": "^6",
+        "illuminate/console": "^6"
+    },
+    "autoload": {
+        "psr-4": {
+            "GeeksAreForLife\\Laravel\\Artisan\\Make\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "GeeksAreForLife\\Laravel\\Artisan\\Make\\DoctrineMakeProvider"
+            ]
+        }
+    }
+}
