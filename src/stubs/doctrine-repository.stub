@@ -1,0 +1,13 @@
+<?php
+
+namespace DummyRepositoryImplementationNamespace;
+
+use Doctrine\ORM\EntityRepository;
+use NamespacedDummyRepositoryInterface;
+use DummyRepositoryImplementationNamespace\Traits\FindFunctions;
+use DummyRepositoryImplementationNamespace\Traits\SaveFunctions;
+
+final class DoctrineDummyClassRepository extends EntityRepository implements DummyClassRepository
+{
+	use FindFunctions, SaveFunctions;
+}
