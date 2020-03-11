@@ -33,7 +33,7 @@ class DoctrineMakeProvider extends ServiceProvider
             $this->commands([
                 //MakeCommand::class,
                 EntityMakeCommand::class,
-                //MappingMakeCommand::class,
+                MappingMakeCommand::class,
                 //RepositoryInterfaceMakeCommand::class,
                 //RepositoryImplementationMakeCommand::class,
                 //FactoryMakeCommand::class,

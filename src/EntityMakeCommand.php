@@ -9,7 +9,7 @@ class EntityMakeCommand extends GeneratorCommand
      *
      * @var string
      */
-    protected $signature = 'app:make:entity
+    protected $signature = 'make:doctrine:entity
                             {name : Name of the entity to create}';
 
     /**
@@ -17,14 +17,14 @@ class EntityMakeCommand extends GeneratorCommand
      *
      * @var string
      */
-    protected $description = 'Create a new Entity';
+    protected $description = 'Create a new Entity (Doctrine)';
 
     /**
-     * Tha sub namespace for this type of class
+     * The class type
      *
      * @var string
      */
-    protected $subspace = "Entities";
+    protected $classType = "entity";
 
     /**
      * Get the stub file for the generator.

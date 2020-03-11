@@ -6,7 +6,7 @@ return [
     |--------------------------------------------------------------------------
     |
     | This allows you to have a domain specific root namespace for your
-    | entities, respositories, etc
+    | entities, repositories, etc
     | This could either be at the normal "app" directory, or one below
     |
     */
@@ -48,4 +48,20 @@ return [
     |
     */
     'interfaceParents' => [], 
+
+    /*
+    |--------------------------------------------------------------------------
+    | Folder Names
+    |--------------------------------------------------------------------------
+    |
+    | The folder names of each of the class types
+    |
+    */
+    'folderNames' => [
+        'entity'            =>  'Entities',
+        'mapping'           =>  'Mappings',
+        'factory'           =>  'Factories',
+        'repository'        =>  'Repositories',
+        'implementation'    =>  'Repositories/Doctrine',
+    ],    
 ];
