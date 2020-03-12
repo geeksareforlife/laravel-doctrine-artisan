@@ -1,6 +1,6 @@
 <?php
 
-namespace DummyRepositoryInterfaceNamespace;
+namespace DummyNamespace;
 DummyUseStatements
 
 interface DummyClass DummyExtends

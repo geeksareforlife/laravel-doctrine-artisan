@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Console\Commands\Make;
+namespace GeeksAreForLife\Laravel\Artisan\Make;
 
 class RepositoryImplementationMakeCommand extends GeneratorCommand
 {
@@ -9,7 +9,7 @@ class RepositoryImplementationMakeCommand extends GeneratorCommand
      *
      * @var string
      */
-    protected $signature = 'yggdrasil:make:repository:implementation
+    protected $signature = 'make:doctrine:repository:implementation
                             {name : Name of the entity this implementation if for}';
 
     /**
@@ -17,7 +17,14 @@ class RepositoryImplementationMakeCommand extends GeneratorCommand
      *
      * @var string
      */
-    protected $description = 'Create a new Repository Implementation';
+    protected $description = 'Create a new Repository Implementation (Doctrine)';
+
+    /**
+     * The class type
+     *
+     * @var string
+     */
+    protected $type = "implementation";
 
     /**
      * Get the stub file for the generator.
@@ -37,18 +44,5 @@ class RepositoryImplementationMakeCommand extends GeneratorCommand
     public function handle()
     {
         parent::handle();
-    }
-
-    /**
-     * Get the destination class path.
-     *
-     * @param  string  $name
-     * @return string
-     */
-    protected function getPath($name)
-    {
-        $name = $this->getNamespacedRepositoryImplementation($name);
-        
-        return $this->laravel['path'].'/'.str_replace('\\', '/', $name).'.php';
     }
 }

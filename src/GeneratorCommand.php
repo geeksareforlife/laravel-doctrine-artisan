@@ -51,7 +51,9 @@ abstract class GeneratorCommand extends LaravelGeneratorCommand
             if ($type == "implementation") {
                 $prefix = "Doctrine";
             }
-            if ($type != "entity" and $type != "mapping") {
+            if ($type == "implementation") {
+                $suffix = "Repository";
+            } elseif ($type != "entity" and $type != "mapping") {
                 $suffix = Str::studly($type);
             }
 

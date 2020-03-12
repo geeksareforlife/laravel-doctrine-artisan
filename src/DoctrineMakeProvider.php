@@ -31,11 +31,11 @@ class DoctrineMakeProvider extends ServiceProvider
 
         if ($this->app->runningInConsole()) {
             $this->commands([
-                //MakeCommand::class,
+                MakeCommand::class,
                 EntityMakeCommand::class,
                 MappingMakeCommand::class,
                 RepositoryInterfaceMakeCommand::class,
-                //RepositoryImplementationMakeCommand::class,
+                RepositoryImplementationMakeCommand::class,
                 FactoryMakeCommand::class,
             ]);
         }

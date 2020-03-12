@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Console\Commands\Make;
+namespace GeeksAreForLife\Laravel\Artisan\Make;
 
 use Illuminate\Console\Command;
 
@@ -11,7 +11,7 @@ class MakeCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'yggdrasil:make
+    protected $signature = 'make:doctrine
                             {name : Name of the entity to create}
                             {--exclude=* : Types not to create (entity, mapping, repository, factory)}';
 
@@ -35,33 +35,33 @@ class MakeCommand extends Command
 
         if ( ! in_array('entity', $exclude)) {
             $this->info('Creating Entity');
-            $this->call('yggdrasil:make:entity', [
+            $this->call('make:doctrine:entity', [
                 'name' => "$name",
             ]);
         }
 
         if ( ! in_array('mapping', $exclude)) {
             $this->info('Creating Mapping');
-            $this->call('yggdrasil:make:mapping', [
+            $this->call('make:doctrine:mapping', [
                 'name' => "$name",
             ]);
         }
 
         if ( ! in_array('repository', $exclude)) {
             $this->info('Creating Repository Interface');
-            $this->call('yggdrasil:make:repository:interface', [
+            $this->call('make:doctrine:repository:interface', [
                 'name' => "$name",
             ]);
 
             $this->info('Creating Repository Implementation');
-            $this->call('yggdrasil:make:repository:implementation', [
+            $this->call('make:doctrine:repository:implementation', [
                 'name' => "$name",
             ]);
         }
 
         if ( ! in_array('factory', $exclude)) {
             $this->info('Creating Factory');
-            $this->call('yggdrasil:make:factory', [
+            $this->call('make:doctrine:factory', [
                 'name' => "$name",
             ]);
         }
