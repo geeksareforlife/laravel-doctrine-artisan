@@ -26,7 +26,7 @@ class FactoryMakeCommand extends GeneratorCommand
      *
      * @var string
      */
-    protected $classType = "factory";
+    protected $type = "factory";
 
     /**
      * Get the stub file for the generator.

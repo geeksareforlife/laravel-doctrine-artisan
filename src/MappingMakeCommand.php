@@ -26,7 +26,7 @@ class MappingMakeCommand extends GeneratorCommand
      *
      * @var string
      */
-    protected $classType = "mapping";
+    protected $type = "mapping";
 
     /**
      * Get the stub file for the generator.
@@ -95,6 +95,10 @@ class MappingMakeCommand extends GeneratorCommand
             [$namspacedDummmyMapping, $dummyTable],
             $stub
         );
+
+        if (strpos($this->getCleanName(), '\\') !== false) {
+            $this->warn('You will want to change the table name in the mapping!');
+        }
 
         return $stub;
     }

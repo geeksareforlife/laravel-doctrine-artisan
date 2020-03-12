@@ -24,7 +24,7 @@ class EntityMakeCommand extends GeneratorCommand
      *
      * @var string
      */
-    protected $classType = "entity";
+    protected $type = "entity";
 
     /**
      * Get the stub file for the generator.

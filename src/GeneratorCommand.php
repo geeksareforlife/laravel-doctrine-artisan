@@ -34,7 +34,7 @@ abstract class GeneratorCommand extends LaravelGeneratorCommand
         $name = $this->getCleanName();
 
         // insert the subnamespace and name changes, for the class type, if we have one
-        if (isset($this->classType)) {
+        if (isset($this->type)) {
             // our name might have multiple components, such as Testy\Tester\Test
             // split these into the main name and sub components
             $subs = $this->getNamespace($name);
@@ -44,20 +44,20 @@ abstract class GeneratorCommand extends LaravelGeneratorCommand
 
             $name = str_replace($subs, '', $name);
 
-            $classType = $this->classType == "mapping" ? "entity" : $this->classType;
+            $type = $this->type == "mapping" ? "entity" : $this->type;
 
             $prefix = '';
             $suffix = '';
-            if ($classType == "implementation") {
+            if ($type == "implementation") {
                 $prefix = "Doctrine";
             }
-            if ($classType != "entity" and $classType != "mapping") {
-                $suffix = Str::studly($classType);
+            if ($type != "entity" and $type != "mapping") {
+                $suffix = Str::studly($type);
             }
 
             $name = $subs . $prefix . $name . $suffix;
 
-            $subspace = $this->getNamespaceOfType($classType);
+            $subspace = $this->getNamespaceOfType($type);
 
             if ($subspace != '') {
                 $name = $subspace . '\\' . $name;
