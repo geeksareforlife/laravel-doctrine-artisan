@@ -1,7 +1,7 @@
 # NamspacedDummmyMapping.dcm.yml
 DummyNamespace\DummyClass:
   type: entity
-  repositoryClass: DummyRepositoryImplementationNamespace\DummyRepositoryImplementation
+  repositoryClass: DummyRepositoryImplementationNamespace\DoctrineDummyRepository
   table: dummyTable
   id:
     id:
