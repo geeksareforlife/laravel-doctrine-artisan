@@ -1,6 +1,8 @@
 <?php
 
-namespace App\Console\Commands\Make;
+namespace GeeksAreForLife\Laravel\Artisan\Make;
+
+use Illuminate\Support\Str;
 
 class FactoryMakeCommand extends GeneratorCommand
 {
@@ -9,7 +11,7 @@ class FactoryMakeCommand extends GeneratorCommand
      *
      * @var string
      */
-    protected $signature = 'yggdrasil:make:factory
+    protected $signature = 'make:doctrine:factory
                             {name : Name of the entity this factory is for}';
 
     /**
@@ -17,7 +19,14 @@ class FactoryMakeCommand extends GeneratorCommand
      *
      * @var string
      */
-    protected $description = 'Create a new Factory';
+    protected $description = 'Create a new Factory (Doctrine)';
+
+    /**
+     * The class type
+     *
+     * @var string
+     */
+    protected $classType = "factory";
 
     /**
      * Get the stub file for the generator.
@@ -40,12 +49,40 @@ class FactoryMakeCommand extends GeneratorCommand
     }
 
     /**
+     * Replace the factory spefific parts
+     * 
+     * @param  string  $stub
+     * @param  string  $name
+     * @return string
+     */
+    protected function replaceSpecific($stub, $name)
+    {
+        $cleanName = $this->getCleanName();
+
+        $subs = $this->getNamespace($cleanName);
+        $dummyEntity = str_replace($subs . '\\', '', $cleanName);
+        $dummyEntityNamespace = $this->rootNamespace() . '\\' . config('doctrine-make.folderNames.entity');
+        if ($subs != '') {
+            $dummyEntityNamespace = $dummyEntityNamespace . '\\' . $subs;
+        }
+
+        $stub = str_replace(
+            ['DummyEntityNamespace', 'DummyEntity', 'dummyEntity'],
+            [$dummyEntityNamespace, $dummyEntity, Str::camel($dummyEntity)],
+            $stub
+        );
+
+
+        return $stub;
+    }
+
+    /**
      * Build the class with the given name.
      *
      * @param  string  $name
      * @return string
      */
-    protected function buildClass($name)
+    /*protected function buildClass($name)
     {
         $stub = parent::buildClass($name);
         $name = str_replace($this->getDefaultNamespace($name).'\\', '', $name);
@@ -58,18 +95,5 @@ class FactoryMakeCommand extends GeneratorCommand
         );
 
         return $stub;
-    }
-
-    /**
-     * Get the destination class path.
-     *
-     * @param  string  $name
-     * @return string
-     */
-    protected function getPath($name)
-    {
-        $name = str_replace($this->getDefaultNamespace($name).'\\', '', $name);
-
-        return $this->laravel['path'].'/Yggdrasil/Factories/'.str_replace('\\', '/', $name).'Factory.php';
-    }
+    }*/
 }

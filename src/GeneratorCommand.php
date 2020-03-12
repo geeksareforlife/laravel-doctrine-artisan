@@ -29,15 +29,36 @@ abstract class GeneratorCommand extends LaravelGeneratorCommand
         return str_replace('/', '\\', $folder);
     }
 
-    protected function getNameInput($clean = false)
+    protected function getNameInput()
     {
-        $name = trim($this->argument('name'));
+        $name = $this->getCleanName();
 
-        // insert the subnamespace, for the class type, if we have one
-        // if we want the "clean" name, skip this
-        if (isset($this->classType) and !$clean) {
+        // insert the subnamespace and name changes, for the class type, if we have one
+        if (isset($this->classType)) {
+            // our name might have multiple components, such as Testy\Tester\Test
+            // split these into the main name and sub components
+            $subs = $this->getNamespace($name);
+            if ($subs != '') {
+                $subs = $subs . '\\';
+            }
+
+            $name = str_replace($subs, '', $name);
+
             $classType = $this->classType == "mapping" ? "entity" : $this->classType;
+
+            $prefix = '';
+            $suffix = '';
+            if ($classType == "implementation") {
+                $prefix = "Doctrine";
+            }
+            if ($classType != "entity" and $classType != "mapping") {
+                $suffix = Str::studly($classType);
+            }
+
+            $name = $subs . $prefix . $name . $suffix;
+
             $subspace = $this->getNamespaceOfType($classType);
+
             if ($subspace != '') {
                 $name = $subspace . '\\' . $name;
             }
@@ -46,13 +67,18 @@ abstract class GeneratorCommand extends LaravelGeneratorCommand
         return $name;
     }
 
+    protected function getCleanName()
+    {
+        return trim($this->argument('name'));
+    }
+
     protected function getPath($name)
     {
         if (config('doctrine-make.atAppLevel')) {
             $name = Str::replaceFirst($this->rootNamespace(), '', $name);
         }
 
-        return $this->laravel['path'].'/'.str_replace('\\', '/', $name).'.php';
+        return $this->laravel['path'] . '/' . str_replace('\\', '/', $name) . '.php';
     }
 
     /**
@@ -68,7 +94,7 @@ abstract class GeneratorCommand extends LaravelGeneratorCommand
     {
         $stub = parent::buildClass($name);
 
-        $stub = $this->replaceRepositories($stub, $name);
+        $stub = $this->replaceRepositories($stub);
         $stub = $this->replaceSpecific($stub, $name);
 
         return $stub;
@@ -93,24 +119,32 @@ abstract class GeneratorCommand extends LaravelGeneratorCommand
      * @param  string  $name
      * @return string
      */
-    protected function replaceRepositories($stub, $name)
+    protected function replaceRepositories($stub)
     {
-        // go back and get the clean name of the class
-        $cleanName = $this->getNameInput(true);
+        $cleanName = $this->getCleanName();
+
         $stub = str_replace(
             ['DummyRepositoryInterfaceNamespace',
             'DummyRepositoryImplementationNamespace',
-            'NamespacedDummyRepositoryInterface'
+            'NamespacedDummyRepositoryInterface',
+            'DummyRepository',
+            'dummyRepository',
+            'DummyRepositoryImplementation'
             ],
-            [$this->getRepositoryInterfaceNamespace($name),
-            $this->getRepositoryImplementationNamespace($name),
-            $this->getNamespacedRepositoryInterface($name)
+            [$this->getRepositoryInterfaceNamespace($cleanName),
+            $this->getRepositoryImplementationNamespace($cleanName),
+            $this->getNamespacedRepositoryInterface($cleanName),
+            $this->getRepository($cleanName),
+            Str::camel($this->getRepository($cleanName)),
+            $this->getImplemention($cleanName),
             ],
             $stub
         );
 
         return $stub;
     }
+
+
 
     /**
      * Get the repository interface namespace for the class.
@@ -158,8 +192,46 @@ abstract class GeneratorCommand extends LaravelGeneratorCommand
     {
         $interface = $this->getRepositoryInterfaceNamespace($name);
 
-        $name = Str::afterLast($name, '\\') . 'Repository';
+        $name = Str::afterLast($name, '\\') . 'Respository';
 
         return $interface . '\\' . $name;
+    }
+
+    /**
+     * Get the name of the repository for the entity.
+     *
+     * @return string
+     */
+    protected function getRepository($name)
+    {
+        // our name might have multiple components, such as Testy\Tester\Test
+        // split these into the main name and sub components
+        $subs = $this->getNamespace($name);
+        if ($subs != '') {
+            $subs = $subs . '\\';
+        }
+
+        $name = str_replace($subs, '', $name);
+
+        return $name . 'Repository';
+    }
+
+    /**
+     * Get the name of the repository implementation for the entity.
+     *
+     * @return string
+     */
+    protected function getImplemention($name)
+    {
+        // our name might have multiple components, such as Testy\Tester\Test
+        // split these into the main name and sub components
+        $subs = $this->getNamespace($name);
+        if ($subs != '') {
+            $subs = $subs . '\\';
+        }
+
+        $name = str_replace($subs, '', $name);
+
+        return 'Doctrine' . $name . 'Repository';
     }
 }

@@ -1,32 +1,32 @@
 <?php
 
-namespace DummyFactoryNamspace;
+namespace DummyNamespace;
 
-use DummyNamespace\DummyClass;
+use DummyEntityNamespace\DummyEntity;
 use NamespacedDummyRepositoryInterface;
 
-class DummyClassFactory
+class DummyClass
 {
     /**
-     * @var DummyClassRepository
+     * @var DummyRepository
      */
-    protected $dummyClassRepository;
+    protected $dummyRepository;
 
     /**
-     * @param DummyClassRepository $dummyClassRepository
+     * @param DummyRepository $dummyRepository
      */
-    public function __construct(DummyClassRepository $dummyClassRepository)
+    public function __construct(DummyRepository $dummyRepository)
     {
-        $this->dummyClassRepository = $dummyClassRepository;
+        $this->dummyRepository = $dummyRepository;
     }
 
     /**
-     * Function to instantiate a new DummyClass from given params.
+     * Function to instantiate a new DummyEntity from given params.
      */
     public function create()
     {
-        $_dummyClass = new DummyClass();
+        $_dummyEntity = new DummyEntity();
 
-        return $_dummyClass;
+        return $_dummyEntity;
     }
 }

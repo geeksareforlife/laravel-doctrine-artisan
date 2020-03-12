@@ -36,7 +36,7 @@ class DoctrineMakeProvider extends ServiceProvider
                 MappingMakeCommand::class,
                 //RepositoryInterfaceMakeCommand::class,
                 //RepositoryImplementationMakeCommand::class,
-                //FactoryMakeCommand::class,
+                FactoryMakeCommand::class,
             ]);
         }
     }
