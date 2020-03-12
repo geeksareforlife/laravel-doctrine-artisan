@@ -1,11 +1,9 @@
 <?php
 
 namespace DummyRepositoryInterfaceNamespace;
+DummyUseStatements
 
-use DummyRepositoryInterfaceNamespace\FindFunctions;
-use DummyRepositoryInterfaceNamespace\SaveFunctions;
-
-interface DummyClassRepository extends FindFunctions, SaveFunctions
+interface DummyClass DummyExtends
 {
 
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Console\Commands\Make;
+namespace GeeksAreForLife\Laravel\Artisan\Make;
 
 class RepositoryInterfaceMakeCommand extends GeneratorCommand
 {
@@ -9,7 +9,7 @@ class RepositoryInterfaceMakeCommand extends GeneratorCommand
      *
      * @var string
      */
-    protected $signature = 'yggdrasil:make:repository:interface
+    protected $signature = 'make:doctrine:repository:interface
                             {name : Name of the entity this interface is for}';
 
     /**
@@ -17,7 +17,14 @@ class RepositoryInterfaceMakeCommand extends GeneratorCommand
      *
      * @var string
      */
-    protected $description = 'Create a new Repository Interface';
+    protected $description = 'Create a new Repository Interface (Doctrine)';
+
+    /**
+     * The class type
+     *
+     * @var string
+     */
+    protected $type = "repository";
 
     /**
      * Get the stub file for the generator.
@@ -40,15 +47,37 @@ class RepositoryInterfaceMakeCommand extends GeneratorCommand
     }
 
     /**
-     * Get the destination class path.
-     *
+     * Replace the repository interface spefific parts
+     * 
+     * @param  string  $stub
      * @param  string  $name
      * @return string
      */
-    protected function getPath($name)
+    protected function replaceSpecific($stub, $name)
     {
-        $name = $this->getNamespacedRepositoryInterface($name);
-        
-        return $this->laravel['path'].'/'.str_replace('\\', '/', $name).'.php';
+        $classes = config('doctrine-make.interfaceParents');
+        $dummyUseStatements = '';
+        $dummyExtends = '';
+
+        if (count($classes) > 0) {
+            $extendClasses = [];
+            $useClasses = [];
+
+            foreach ($classes as $class) {
+                $extendClasses[] = str_replace($this->getNamespace($class) . '\\', '', $class);
+                $useClasses[] = 'use ' . $class . ';';
+            }
+
+            $dummyUseStatements = "\n" . implode("\n", $useClasses);
+            $dummyExtends = "extends " . implode(', ', $extendClasses);
+        }
+
+        $stub = str_replace(
+            ['DummyUseStatements', 'DummyExtends'],
+            [$dummyUseStatements, $dummyExtends],
+            $stub
+        );
+
+        return $stub;
     }
 }

@@ -72,7 +72,6 @@ class FactoryMakeCommand extends GeneratorCommand
             $stub
         );
 
-
         return $stub;
     }
 
