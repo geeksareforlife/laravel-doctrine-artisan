@@ -22,6 +22,8 @@ class DummyClass
 
     /**
      * Function to instantiate a new DummyEntity from given params.
+     *
+     * @return DummyEntity
      */
     public function create()
     {

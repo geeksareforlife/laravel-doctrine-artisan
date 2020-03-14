@@ -97,7 +97,8 @@ class MappingMakeCommand extends GeneratorCommand
         );
 
         if (strpos($this->getCleanName(), '\\') !== false) {
-            $this->warn('You will want to change the table name in the mapping!');
+            $this->warn('You may want to change the table name in the mapping!');
+            $this->warn('The generated table name is <fg=black;bg=white;>' . $dummyTable . '</>');
         }
 
         return $stub;
