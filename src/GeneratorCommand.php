@@ -71,7 +71,12 @@ abstract class GeneratorCommand extends LaravelGeneratorCommand
 
     protected function getCleanName()
     {
-        return trim($this->argument('name'));
+        $name = trim($this->argument('name'));
+
+        // replace all forward slashes with backslashes
+        $name = str_replace('/', '\\', $name);
+
+        return $name;
     }
 
     protected function getPath($name)
