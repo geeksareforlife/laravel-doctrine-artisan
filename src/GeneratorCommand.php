@@ -252,4 +252,48 @@ abstract class GeneratorCommand extends LaravelGeneratorCommand
 
         return 'Doctrine' . $name . 'Repository';
     }
+
+    /**
+     * Sorts the imports for the given stub.
+     *
+     * @param  string  $stub
+     * @return string
+     */
+    protected function sortImports($stub)
+    {
+        if (preg_match('/(?P<imports>(?:use [^;]+;$\n?)+)/m', $stub, $match)) {
+            $imports = explode("\n", trim($match['imports']));
+
+            $sortType = config('doctrine-make.importSort');
+
+            if ($sortType == "length") {
+                usort($imports, [$this, 'cmpLength']);
+            } else {
+                // default is alphe
+                sort($imports);
+            }
+
+            return str_replace(trim($match['imports']), implode("\n", $imports), $stub);
+        }
+
+        return $stub;
+    }
+
+    /**
+     * Length based sort for the import sort
+     */
+    static function cmpLength($a, $b)
+    {
+        $lenA = strlen($a);
+        $lenB = strlen($b);
+
+        if ($lenA == $lenB) {
+            // back to alpha if same length!
+            if ($a == $b) {
+                return 0;
+            }
+            return ($a < $b) ? -1 : 1;
+        }
+        return ($lenA < $lenB) ? -1 : 1;
+    }
 }
