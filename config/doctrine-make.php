@@ -62,6 +62,20 @@ return [
         'mapping'           =>  'Mappings',
         'factory'           =>  'Factories',
         'repository'        =>  'Repositories',
-        'implementation'    =>  'Repositories/Doctrine',
-    ],    
+        'implementation'    =>  'Repositories',
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Implementation Location
+    |--------------------------------------------------------------------------
+    |
+    | Where should we store the repository implementations?
+    | Possible options:
+    | - "nested" - store implementations in the same folder as the respository
+    | - "collected" -  store implentations all together, with nesting mirroring
+    |                  that of the repositories
+    |
+    */
+    'implementationLocation' => "collected",
 ];

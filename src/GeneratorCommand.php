@@ -41,28 +41,39 @@ abstract class GeneratorCommand extends LaravelGeneratorCommand
             if ($subs != '') {
                 $subs = $subs . '\\';
             }
-
             $name = str_replace($subs, '', $name);
 
+            // for the purposes of the name, a mapping will pretend to be an entity
             $type = $this->type == "mapping" ? "entity" : $this->type;
 
+            // work out the prefix and suffix for the name itself
             $prefix = '';
             $suffix = '';
             if ($type == "implementation") {
                 $prefix = "Doctrine";
-            }
-            if ($type == "implementation") {
                 $suffix = "Repository";
-            } elseif ($type != "entity" and $type != "mapping") {
+            } elseif ($type != "entity") {
                 $suffix = Str::studly($type);
             }
 
-            $name = $subs . $prefix . $name . $suffix;
+
+            $name = $prefix . $name . $suffix;
 
             $subspace = $this->getNamespaceOfType($type);
-
             if ($subspace != '') {
-                $name = $subspace . '\\' . $name;
+                $subspace = $subspace . '\\';
+            }
+
+            // implementation could have two different ways to setup the namespace
+            if ($type == "implementation") {
+                $implementationLocation = config('doctrine-make.implementationLocation');
+                if ($implementationLocation == "collected") {
+                    $name = $subspace . 'Doctrine\\' . $subs . $name;
+                } else {
+                    $name = $subspace . $subs . 'Doctrine\\' . $name;
+                }
+            } else {
+                $name = $subspace . $subs . $name;
             }
         }
 
