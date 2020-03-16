@@ -125,6 +125,15 @@ namespace and the `atAppLevel` item to `false`. This assumes the folder for the 
 You can set `importSort` to either `alpha` or `length`, depending on how you would like the import (use) statements in
 the generated classes to be sorted.
 
+### Interface Parents
+
+As our repository implementations inherit funtionality from the Doctrine `EntityRepository`, you will want to define the 
+signatures of these standard functions in your interfaces.
+
+The easiest eay to do this is to have your interface extend one or more parent interfaces.
+
+Once you have created these, you can list them (with full namespaces) in the `interfaceParents` item and they will be built into your interface.
+
 ### Folders
 
 The `folderNames` array contains the names of each of the folders for the various class types. You will notice that 
