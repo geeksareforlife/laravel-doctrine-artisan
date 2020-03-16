@@ -202,3 +202,7 @@ $this->app->singleton(
         return new App\Repositories\Doctrine\StudentRepository($app['em'], $app['em']->getClassMetaData(App\Entities\Student::class));
     });
 ```
+
+## Thanks
+
+This code is heavily inspired by code created for Nottingham Hackspace's [HMS](https://github.com/NottingHack/hms2) written by @dpslwk and used here with permission.
