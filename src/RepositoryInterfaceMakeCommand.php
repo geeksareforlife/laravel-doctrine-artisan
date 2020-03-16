@@ -68,7 +68,7 @@ class RepositoryInterfaceMakeCommand extends GeneratorCommand
                 $useClasses[] = 'use ' . $class . ';';
             }
 
-            $dummyUseStatements = "\n" . implode("\n", $useClasses);
+            $dummyUseStatements = "\n" . implode("\n", $useClasses) . "\n";
             $dummyExtends = "extends " . implode(', ', $extendClasses);
         }
 
