@@ -20,11 +20,11 @@ class RepositoryImplementationMakeCommand extends GeneratorCommand
     protected $description = 'Create a new Repository Implementation (Doctrine)';
 
     /**
-     * The class type
+     * The class type.
      *
      * @var string
      */
-    protected $type = "implementation";
+    protected $type = 'implementation';
 
     /**
      * Get the stub file for the generator.
@@ -33,7 +33,7 @@ class RepositoryImplementationMakeCommand extends GeneratorCommand
      */
     protected function getStub()
     {
-        return __DIR__.'/stubs/doctrine-repository.stub';
+        return __DIR__ . '/stubs/doctrine-repository.stub';
     }
 
     /**

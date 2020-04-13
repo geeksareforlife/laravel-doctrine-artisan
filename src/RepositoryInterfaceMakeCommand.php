@@ -20,11 +20,11 @@ class RepositoryInterfaceMakeCommand extends GeneratorCommand
     protected $description = 'Create a new Repository Interface (Doctrine)';
 
     /**
-     * The class type
+     * The class type.
      *
      * @var string
      */
-    protected $type = "repository";
+    protected $type = 'repository';
 
     /**
      * Get the stub file for the generator.
@@ -33,7 +33,7 @@ class RepositoryInterfaceMakeCommand extends GeneratorCommand
      */
     protected function getStub()
     {
-        return __DIR__.'/stubs/repository-interface.stub';
+        return __DIR__ . '/stubs/repository-interface.stub';
     }
 
     /**
@@ -47,8 +47,8 @@ class RepositoryInterfaceMakeCommand extends GeneratorCommand
     }
 
     /**
-     * Replace the repository interface spefific parts
-     * 
+     * Replace the repository interface spefific parts.
+     *
      * @param  string  $stub
      * @param  string  $name
      * @return string
@@ -69,7 +69,7 @@ class RepositoryInterfaceMakeCommand extends GeneratorCommand
             }
 
             $dummyUseStatements = "\n" . implode("\n", $useClasses) . "\n";
-            $dummyExtends = "extends " . implode(', ', $extendClasses);
+            $dummyExtends = 'extends ' . implode(', ', $extendClasses);
         }
 
         $stub = str_replace(

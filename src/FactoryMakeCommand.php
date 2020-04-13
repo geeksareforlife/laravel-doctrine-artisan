@@ -22,11 +22,11 @@ class FactoryMakeCommand extends GeneratorCommand
     protected $description = 'Create a new Factory (Doctrine)';
 
     /**
-     * The class type
+     * The class type.
      *
      * @var string
      */
-    protected $type = "factory";
+    protected $type = 'factory';
 
     /**
      * Get the stub file for the generator.
@@ -35,7 +35,7 @@ class FactoryMakeCommand extends GeneratorCommand
      */
     protected function getStub()
     {
-        return __DIR__.'/stubs/factory.stub';
+        return __DIR__ . '/stubs/factory.stub';
     }
 
     /**
@@ -49,8 +49,8 @@ class FactoryMakeCommand extends GeneratorCommand
     }
 
     /**
-     * Replace the factory spefific parts
-     * 
+     * Replace the factory spefific parts.
+     *
      * @param  string  $stub
      * @param  string  $name
      * @return string

@@ -44,18 +44,17 @@ abstract class GeneratorCommand extends LaravelGeneratorCommand
             $name = str_replace($subs, '', $name);
 
             // for the purposes of the name, a mapping will pretend to be an entity
-            $type = $this->type == "mapping" ? "entity" : $this->type;
+            $type = $this->type == 'mapping' ? 'entity' : $this->type;
 
             // work out the prefix and suffix for the name itself
             $prefix = '';
             $suffix = '';
-            if ($type == "implementation") {
-                $prefix = "Doctrine";
-                $suffix = "Repository";
-            } elseif ($type != "entity") {
+            if ($type == 'implementation') {
+                $prefix = 'Doctrine';
+                $suffix = 'Repository';
+            } elseif ($type != 'entity') {
                 $suffix = Str::studly($type);
             }
-
 
             $name = $prefix . $name . $suffix;
 
@@ -65,9 +64,9 @@ abstract class GeneratorCommand extends LaravelGeneratorCommand
             }
 
             // implementation could have two different ways to setup the namespace
-            if ($type == "implementation") {
+            if ($type == 'implementation') {
                 $implementationLocation = config('doctrine-make.implementationLocation');
-                if ($implementationLocation == "collected") {
+                if ($implementationLocation == 'collected') {
                     $name = $subspace . 'Doctrine\\' . $subs . $name;
                 } else {
                     $name = $subspace . $subs . 'Doctrine\\' . $name;
@@ -101,7 +100,7 @@ abstract class GeneratorCommand extends LaravelGeneratorCommand
 
     /**
      * Build the class with the given name.
-     * Injects some more replacements into the parent function
+     * Injects some more replacements into the parent function.
      *
      * @param  string  $name
      * @return string
@@ -119,8 +118,8 @@ abstract class GeneratorCommand extends LaravelGeneratorCommand
     }
 
     /**
-     * Intended for the child class to override if needed
-     * 
+     * Intended for the child class to override if needed.
+     *
      * @param  string  $stub
      * @param  string  $name
      * @return string
@@ -131,8 +130,8 @@ abstract class GeneratorCommand extends LaravelGeneratorCommand
     }
 
     /**
-     * A number of our classes will need to know details of the repositories
-     * 
+     * A number of our classes will need to know details of the repositories.
+     *
      * @param  string  $stub
      * @param  string  $name
      * @return string
@@ -143,26 +142,24 @@ abstract class GeneratorCommand extends LaravelGeneratorCommand
 
         $stub = str_replace(
             ['DummyRepositoryInterfaceNamespace',
-            'DummyRepositoryImplementationNamespace',
-            'NamespacedDummyRepositoryInterface',
-            'DummyRepository',
-            'dummyRepository',
-            'DummyRepositoryImplementation'
+                'DummyRepositoryImplementationNamespace',
+                'NamespacedDummyRepositoryInterface',
+                'DummyRepository',
+                'dummyRepository',
+                'DummyRepositoryImplementation',
             ],
             [$this->getRepositoryInterfaceNamespace($cleanName),
-            $this->getRepositoryImplementationNamespace($cleanName),
-            $this->getNamespacedRepositoryInterface($cleanName),
-            $this->getRepository($cleanName),
-            Str::camel($this->getRepository($cleanName)),
-            $this->getImplemention($cleanName),
+                $this->getRepositoryImplementationNamespace($cleanName),
+                $this->getNamespacedRepositoryInterface($cleanName),
+                $this->getRepository($cleanName),
+                Str::camel($this->getRepository($cleanName)),
+                $this->getImplemention($cleanName),
             ],
             $stub
         );
 
         return $stub;
     }
-
-
 
     /**
      * Get the repository interface namespace for the class.
@@ -266,7 +263,7 @@ abstract class GeneratorCommand extends LaravelGeneratorCommand
 
             $sortType = config('doctrine-make.importSort');
 
-            if ($sortType == "length") {
+            if ($sortType == 'length') {
                 usort($imports, [$this, 'cmpLength']);
             } else {
                 // default is alphe
@@ -280,9 +277,9 @@ abstract class GeneratorCommand extends LaravelGeneratorCommand
     }
 
     /**
-     * Length based sort for the import sort
+     * Length based sort for the import sort.
      */
-    static function cmpLength($a, $b)
+    public static function cmpLength($a, $b)
     {
         $lenA = strlen($a);
         $lenB = strlen($b);
@@ -292,8 +289,10 @@ abstract class GeneratorCommand extends LaravelGeneratorCommand
             if ($a == $b) {
                 return 0;
             }
+
             return ($a < $b) ? -1 : 1;
         }
+
         return ($lenA < $lenB) ? -1 : 1;
     }
 }
