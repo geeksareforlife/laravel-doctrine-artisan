@@ -141,14 +141,16 @@ abstract class GeneratorCommand extends LaravelGeneratorCommand
         $cleanName = $this->getCleanName();
 
         $stub = str_replace(
-            ['DummyRepositoryInterfaceNamespace',
+            [
+                'DummyRepositoryInterfaceNamespace',
                 'DummyRepositoryImplementationNamespace',
                 'NamespacedDummyRepositoryInterface',
                 'DummyRepository',
                 'dummyRepository',
                 'DummyRepositoryImplementation',
             ],
-            [$this->getRepositoryInterfaceNamespace($cleanName),
+            [
+                $this->getRepositoryInterfaceNamespace($cleanName),
                 $this->getRepositoryImplementationNamespace($cleanName),
                 $this->getNamespacedRepositoryInterface($cleanName),
                 $this->getRepository($cleanName),
