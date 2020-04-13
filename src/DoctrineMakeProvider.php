@@ -26,7 +26,7 @@ class DoctrineMakeProvider extends ServiceProvider
     public function boot()
     {
         $this->publishes([
-            __DIR__ . '/../config/doctrine-make.php' => config_path('doctrine-make.php')
+            __DIR__ . '/../config/doctrine-make.php' => config_path('doctrine-make.php'),
         ]);
 
         if ($this->app->runningInConsole()) {

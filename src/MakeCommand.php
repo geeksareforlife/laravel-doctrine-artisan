@@ -33,21 +33,21 @@ class MakeCommand extends Command
 
         $exclude = array_map('strtolower', $this->option('exclude'));
 
-        if ( ! in_array('entity', $exclude)) {
+        if (! in_array('entity', $exclude)) {
             $this->info('Creating Entity');
             $this->call('make:doctrine:entity', [
                 'name' => "$name",
             ]);
         }
 
-        if ( ! in_array('mapping', $exclude)) {
+        if (! in_array('mapping', $exclude)) {
             $this->info('Creating Mapping');
             $this->call('make:doctrine:mapping', [
                 'name' => "$name",
             ]);
         }
 
-        if ( ! in_array('repository', $exclude)) {
+        if (! in_array('repository', $exclude)) {
             $this->info('Creating Repository Interface');
             $this->call('make:doctrine:repository:interface', [
                 'name' => "$name",
@@ -59,7 +59,7 @@ class MakeCommand extends Command
             ]);
         }
 
-        if ( ! in_array('factory', $exclude)) {
+        if (! in_array('factory', $exclude)) {
             $this->info('Creating Factory');
             $this->call('make:doctrine:factory', [
                 'name' => "$name",

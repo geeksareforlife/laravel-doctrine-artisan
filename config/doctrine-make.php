@@ -1,4 +1,5 @@
 <?php
+
 return [
     /*
     |--------------------------------------------------------------------------
@@ -47,7 +48,7 @@ return [
     | Doctrine's standard find and save functions, if you intend to use them.
     |
     */
-    'interfaceParents' => [], 
+    'interfaceParents' => [],
 
     /*
     |--------------------------------------------------------------------------
@@ -77,5 +78,5 @@ return [
     |                  that of the repositories
     |
     */
-    'implementationLocation' => "collected",
+    'implementationLocation' => 'collected',
 ];

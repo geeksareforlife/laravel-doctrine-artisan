@@ -22,11 +22,11 @@ class MappingMakeCommand extends GeneratorCommand
     protected $description = 'Create a new Mapping (Doctrine)';
 
     /**
-     * The class type
+     * The class type.
      *
      * @var string
      */
-    protected $type = "mapping";
+    protected $type = 'mapping';
 
     /**
      * Get the stub file for the generator.
@@ -35,7 +35,7 @@ class MappingMakeCommand extends GeneratorCommand
      */
     protected function getStub()
     {
-        return __DIR__.'/stubs/mapping.stub';
+        return __DIR__ . '/stubs/mapping.stub';
     }
 
     /**
@@ -49,7 +49,7 @@ class MappingMakeCommand extends GeneratorCommand
     }
 
     /**
-     * Make some mapping-specific changes to the path
+     * Make some mapping-specific changes to the path.
      *
      * @param  string  $name
      * @return string
@@ -71,15 +71,15 @@ class MappingMakeCommand extends GeneratorCommand
         $path = parent::getPath($name);
 
         // we need to make some changes to the path to accomodate the mapping!
-        $path = Str::replaceLast('.php', '.dcm.yml', $path); 
+        $path = Str::replaceLast('.php', '.dcm.yml', $path);
         $path = Str::replaceFirst('/' . $entityFolder . '/', '/' . $mappingFolder . '/', $path);
 
         return $path;
     }
 
     /**
-     * Replace the mapping spefific parts
-     * 
+     * Replace the mapping spefific parts.
+     *
      * @param  string  $stub
      * @param  string  $name
      * @return string

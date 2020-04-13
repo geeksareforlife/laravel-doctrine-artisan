@@ -20,11 +20,11 @@ class EntityMakeCommand extends GeneratorCommand
     protected $description = 'Create a new Entity (Doctrine)';
 
     /**
-     * The class type
+     * The class type.
      *
      * @var string
      */
-    protected $type = "entity";
+    protected $type = 'entity';
 
     /**
      * Get the stub file for the generator.
@@ -33,7 +33,7 @@ class EntityMakeCommand extends GeneratorCommand
      */
     protected function getStub()
     {
-        return __DIR__.'/stubs/entity.stub';
+        return __DIR__ . '/stubs/entity.stub';
     }
 
     /**
